@@ -4,7 +4,7 @@ import { gt } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Chess Game Reviewer",
+  title: "En Passant - Chess Game Reviewer",
   description: "Review your chess games with AI-powered analyses.",
 };
 
@@ -15,7 +15,14 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body className={cn("antialiased dark", gt.className)}>{children}</body>
+      <body
+        className={cn(
+          "antialiased dark w-full min-h-screen flex items-center justify-center p-6 xl:px-12",
+          gt.className
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 };

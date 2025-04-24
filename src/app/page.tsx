@@ -1,103 +1,91 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { FILES, IMAGES, RANKS } from "@/constants/constants";
+import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+
+const Home = () => {
+  const [className, setClassname] = useState("");
+  const isFlipped = false; // Change this to true to flip the board
+  const squares = Array.from({ length: 64 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const height = window.innerHeight;
+      const width = window.innerWidth;
+
+      setClassname(height > width ? "w-full" : "h-[calc(100vh-3rem)]");
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="w-full h-auto flex flex-col gap-8 items-center justify-center relative">
+      <section className={cn("border aspect-square grid grid-cols-8", className)}>
+        {squares.map((_, i) => {
+          const row = Math.floor(i / 8);
+          const col = i % 8;
+          const isLightSquare = (row + col) % 2 === 0;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          const isBottomRow = row === 7;
+          const isLeftCol = col === 0;
+
+          // Calculate file index for label:
+          const fileIndex = isFlipped ? 7 - col : col;
+
+          // Calculate rank index for label:
+          const rankIndex = isFlipped ? row : 7 - row;
+
+          return (
+            <div
+              key={i}
+              className={cn(
+                "border relative select-none flex items-center justify-center",
+                isLightSquare ? "bg-light-brown" : "bg-dark-brown"
+              )}
+            >
+              {/* Render file label on bottom row */}
+              {isBottomRow && (
+                <span
+                  className={cn(
+                    "absolute bottom-1 right-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                    isLightSquare ? "text-dark-brown" : "text-light-brown"
+                  )}
+                >
+                  {FILES[fileIndex]}
+                </span>
+              )}
+
+              {/* Render rank label on left column */}
+              {isLeftCol && (
+                <span
+                  className={cn(
+                    "absolute top-1 left-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                    isLightSquare ? "text-dark-brown" : "text-light-brown"
+                  )}
+                >
+                  {RANKS[rankIndex]}
+                </span>
+              )}
+
+              {/* Render piece images */}
+              {/* Uncomment and replace with actual piece rendering logic */}
+              <img src={IMAGES.pieces.black.queen} alt="White King" className="size-3/4" />
+            </div>
+          );
+        })}
+      </section>
+
+      <section className="w-full  border h-[60rem]"></section>
+
+      <div className="p-4 rounded-lg w-full max-w-xl border fixed bottom-8"></div>
+    </main>
   );
-}
+};
+
+export default Home;
