@@ -1,7 +1,9 @@
 "use client";
 
-import { FILES, IMAGES, RANKS } from "@/constants/constants";
+import { Button } from "@/components/ui/button";
+import { BOTTOM_BAR, FILES, IMAGES, RANKS } from "@/constants/constants";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -26,7 +28,12 @@ const Home = () => {
 
   return (
     <main className="w-full h-auto flex flex-col gap-8 items-center justify-center relative">
-      <section className={cn("border aspect-square grid grid-cols-8", className)}>
+      <section
+        className={cn(
+          "border aspect-square grid grid-cols-8 rounded-xl overflow-hidden",
+          className
+        )}
+      >
         {squares.map((_, i) => {
           const row = Math.floor(i / 8);
           const col = i % 8;
@@ -81,9 +88,22 @@ const Home = () => {
         })}
       </section>
 
-      <section className="w-full  border h-[60rem]"></section>
+      <section className="w-full border h-[60rem] mb-26"></section>
 
-      <div className="p-4 rounded-lg w-full max-w-xl border fixed bottom-8"></div>
+      <div className="rounded-xl bg-gradient-to-b from-black/80 via-black/90 to-black shadow-lg shadow-black/60 ring-1 ring-white/10 py-4 px-6 fixed bottom-8 flex gap-6 items-center justify-center transform transition-transform opacity-50 hover:opacity-100">
+        {BOTTOM_BAR.map((t, i) => (
+          <TooltipProvider key={i}>
+            <Tooltip>
+              <TooltipTrigger>
+                {<t.icon onClick={t.action} className="cursor-pointer" size={30} />}
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t.tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ))}
+      </div>
     </main>
   );
 };
