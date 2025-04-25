@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { Check, X, Star } from "lucide-react";
-import { PlayerData } from "@/types/general";
 import { Button } from "../ui/button";
 import { DEFAULT_SUMMARY } from "@/constants/constants";
 
@@ -56,7 +53,6 @@ const GameSummary = () => {
             {players[0].stats[key as keyof (typeof players)[0]["stats"]]}
           </div>
           <div className="flex items-center justify-center gap-2">
-            {/* {statIcons[key as keyof typeof statIcons]} */}
             <span className="text-gray-300">{label}</span>
           </div>
           <div className="text-center">

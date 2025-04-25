@@ -10,9 +10,9 @@ export const parseFEN = (fen: string) => {
 
   const board = [];
 
-  for (let rank of ranks) {
+  for (const rank of ranks) {
     const row = [];
-    for (let char of rank) {
+    for (const char of rank) {
       if (/\d/.test(char)) {
         const emptySquares = parseInt(char, 10);
         for (let i = 0; i < emptySquares; i++) {

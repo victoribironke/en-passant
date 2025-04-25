@@ -1,6 +1,6 @@
 import { board_details } from "@/atoms/atoms";
 import { PlayerData } from "@/types/general";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Repeat2 } from "lucide-react";
 
 export const THEME_KEY = "en-passant-theme";

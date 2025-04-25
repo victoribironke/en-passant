@@ -1,6 +1,6 @@
 "use client";
 
-import { FILES, IMAGES, RANKS, STARTING_POSITION_FEN } from "@/constants/constants";
+import { FILES, RANKS, STARTING_POSITION_FEN } from "@/constants/constants";
 import { cn, getPieceImage, parseFEN } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
