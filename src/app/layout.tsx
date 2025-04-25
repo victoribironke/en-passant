@@ -4,7 +4,7 @@ import { gt } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "En Passant - Chess Game Reviewer",
+  title: "Outpost - Chess Game Reviewer",
   description: "Review your chess games with AI-powered analyses.",
 };
 

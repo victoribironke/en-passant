@@ -65,7 +65,7 @@ const Board = () => {
             {isBottomRow && (
               <span
                 className={cn(
-                  "absolute bottom-1 left-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                  "absolute bottom-1 right-1 text-xs md:text-sm lg:text-base font-medium select-none",
                   isLightSquare ? "text-dark-brown" : "text-light-brown"
                 )}
               >
@@ -77,7 +77,7 @@ const Board = () => {
             {isLeftCol && (
               <span
                 className={cn(
-                  "absolute top-1 right-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                  "absolute top-1 left-1 text-xs md:text-sm lg:text-base font-medium select-none",
                   isLightSquare ? "text-dark-brown" : "text-light-brown"
                 )}
               >
@@ -90,7 +90,7 @@ const Board = () => {
               <img
                 src={pieceImage}
                 alt={`Chess piece ${pieceChar}`}
-                className="size-3/4 absolute pointer-events-none select-none"
+                className="size-4/5 absolute pointer-events-none select-none"
                 draggable={false}
               />
             )}
