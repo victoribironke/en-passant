@@ -43,3 +43,5 @@ export const BOTTOM_BAR = () => {
     { icon: ChevronsRight, tooltip: "Go to end", action: () => alert("hi") },
   ];
 };
+
+export const STARTING_POSITION_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";

@@ -1,5 +1,7 @@
-import { FILES, IMAGES, RANKS } from "@/constants/constants";
-import { cn } from "@/lib/utils";
+"use client";
+
+import { FILES, IMAGES, RANKS, STARTING_POSITION_FEN } from "@/constants/constants";
+import { cn, getPieceImage, parseFEN } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { board_details } from "@/atoms/atoms";
@@ -7,7 +9,8 @@ import { board_details } from "@/atoms/atoms";
 const Board = () => {
   const [className, setClassname] = useState("");
   const { isFlipped } = useAtomValue(board_details);
-  const squares = Array.from({ length: 64 });
+
+  const board = parseFEN(STARTING_POSITION_FEN);
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,19 +31,27 @@ const Board = () => {
     <section
       className={cn("border aspect-square grid grid-cols-8 rounded-xl overflow-hidden", className)}
     >
-      {squares.map((_, i) => {
+      {Array.from({ length: 64 }).map((_, i) => {
         const row = Math.floor(i / 8);
         const col = i % 8;
-        const isLightSquare = (row + col) % 2 === 0;
 
+        // Flip board visually by reversing row and col for pieces and colors
+        const displayRow = isFlipped ? 7 - row : row;
+        const displayCol = isFlipped ? 7 - col : col;
+
+        const isLightSquare = (displayRow + displayCol) % 2 === 0;
+
+        // Labels always on bottom row and left column (fixed positions)
         const isBottomRow = row === 7;
         const isLeftCol = col === 0;
 
-        // Calculate file index for label:
-        const fileIndex = isFlipped ? 7 - col : col;
+        // Label content changes with flip
+        const fileLabelIndex = isFlipped ? 7 - col : col;
+        const rankLabelIndex = isFlipped ? row : 7 - row;
 
-        // Calculate rank index for label:
-        const rankIndex = isFlipped ? row : 7 - row;
+        // Get piece char and image using displayRow/displayCol as before
+        const pieceChar = board[displayRow][displayCol];
+        const pieceImage = getPieceImage(pieceChar);
 
         return (
           <div
@@ -50,33 +61,39 @@ const Board = () => {
               isLightSquare ? "bg-light-brown" : "bg-dark-brown"
             )}
           >
-            {/* Render file label on bottom row */}
+            {/* Files on bottom row */}
             {isBottomRow && (
               <span
                 className={cn(
-                  "absolute bottom-1 right-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                  "absolute bottom-1 left-1 text-xs md:text-sm lg:text-base font-medium select-none",
                   isLightSquare ? "text-dark-brown" : "text-light-brown"
                 )}
               >
-                {FILES[fileIndex]}
+                {FILES[fileLabelIndex]}
               </span>
             )}
 
-            {/* Render rank label on left column */}
+            {/* Ranks on left column */}
             {isLeftCol && (
               <span
                 className={cn(
-                  "absolute top-1 left-1 text-xs md:text-sm lg:text-base font-medium select-none",
+                  "absolute top-1 right-1 text-xs md:text-sm lg:text-base font-medium select-none",
                   isLightSquare ? "text-dark-brown" : "text-light-brown"
                 )}
               >
-                {RANKS[rankIndex]}
+                {RANKS[rankLabelIndex]}
               </span>
             )}
 
-            {/* Render piece images */}
-            {/* Uncomment and replace with actual piece rendering logic */}
-            <img src={IMAGES.pieces.black.queen} alt="White King" className="size-3/4" />
+            {/* Piece image */}
+            {pieceImage && (
+              <img
+                src={pieceImage}
+                alt={`Chess piece ${pieceChar}`}
+                className="size-3/4 absolute pointer-events-none select-none"
+                draggable={false}
+              />
+            )}
           </div>
         );
       })}
