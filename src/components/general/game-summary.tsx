@@ -2,56 +2,10 @@ import Image from "next/image";
 import { Check, X, Star } from "lucide-react";
 import { PlayerData } from "@/types/general";
 import { Button } from "../ui/button";
+import { DEFAULT_SUMMARY } from "@/constants/constants";
 
 const GameSummary = () => {
-  const players: PlayerData[] = [
-    {
-      name: "boy_victor",
-      avatar: "/placeholder.svg?height=60&width=60",
-      accuracy: 76.3,
-      stats: {
-        brilliant: 0,
-        great: 2,
-        best: 4,
-        excellent: 6,
-        good: 2,
-        book: 6,
-        inaccuracy: 3,
-        mistake: 1,
-        miss: 0,
-        blunder: 1,
-      },
-      rating: 1250,
-      phases: {
-        opening: true,
-        middlegame: true,
-        endgame: false,
-      },
-    },
-    {
-      name: "Gullrick33",
-      avatar: "/placeholder.svg?height=60&width=60",
-      accuracy: 64.3,
-      stats: {
-        brilliant: 0,
-        great: 0,
-        best: 4,
-        excellent: 4,
-        good: 3,
-        book: 5,
-        inaccuracy: 5,
-        mistake: 1,
-        miss: 1,
-        blunder: 1,
-      },
-      rating: 700,
-      phases: {
-        opening: true,
-        middlegame: true,
-        endgame: false,
-      },
-    },
-  ];
+  const players = DEFAULT_SUMMARY;
 
   // Labels for each stat category
   const statLabels = {

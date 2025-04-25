@@ -1,6 +1,5 @@
 export type PlayerData = {
   name: string;
-  avatar: string;
   accuracy: number;
   stats: {
     brilliant: number;
@@ -15,9 +14,4 @@ export type PlayerData = {
     blunder: number;
   };
   rating: number;
-  phases: {
-    opening: boolean;
-    middlegame: boolean;
-    endgame: boolean;
-  };
 };

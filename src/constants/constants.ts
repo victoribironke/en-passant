@@ -1,4 +1,5 @@
 import { board_details } from "@/atoms/atoms";
+import { PlayerData } from "@/types/general";
 import { useAtomValue, useSetAtom } from "jotai";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Repeat2 } from "lucide-react";
 
@@ -45,3 +46,40 @@ export const BOTTOM_BAR = () => {
 };
 
 export const STARTING_POSITION_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+export const DEFAULT_SUMMARY: PlayerData[] = [
+  {
+    name: "Player 1",
+    accuracy: 0,
+    stats: {
+      brilliant: 0,
+      great: 0,
+      best: 0,
+      excellent: 0,
+      good: 0,
+      book: 0,
+      inaccuracy: 0,
+      mistake: 0,
+      miss: 0,
+      blunder: 0,
+    },
+    rating: 400,
+  },
+  {
+    name: "Player 2",
+    accuracy: 0,
+    stats: {
+      brilliant: 0,
+      great: 0,
+      best: 0,
+      excellent: 0,
+      good: 0,
+      book: 0,
+      inaccuracy: 0,
+      mistake: 0,
+      miss: 0,
+      blunder: 0,
+    },
+    rating: 400,
+  },
+];
