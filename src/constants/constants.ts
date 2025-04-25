@@ -1,3 +1,5 @@
+import { board_details } from "@/atoms/atoms";
+import { useAtomValue, useSetAtom } from "jotai";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Repeat2 } from "lucide-react";
 
 export const THEME_KEY = "en-passant-theme";
@@ -26,10 +28,18 @@ export const IMAGES = {
   },
 };
 
-export const BOTTOM_BAR = [
-  { icon: Repeat2, tooltip: "Flip board", action: () => alert("hi") },
-  { icon: ChevronsLeft, tooltip: "Go to start", action: () => alert("hi") },
-  { icon: ChevronLeft, tooltip: "Previous move", action: () => alert("hi") },
-  { icon: ChevronRight, tooltip: "Next move", action: () => alert("hi") },
-  { icon: ChevronsRight, tooltip: "Go to end", action: () => alert("hi") },
-];
+export const BOTTOM_BAR = () => {
+  const setBoardDetails = useSetAtom(board_details);
+
+  return [
+    {
+      icon: Repeat2,
+      tooltip: "Flip board",
+      action: () => setBoardDetails((prev) => ({ ...prev, isFlipped: !prev.isFlipped })),
+    },
+    { icon: ChevronsLeft, tooltip: "Go to start", action: () => alert("hi") },
+    { icon: ChevronLeft, tooltip: "Previous move", action: () => alert("hi") },
+    { icon: ChevronRight, tooltip: "Next move", action: () => alert("hi") },
+    { icon: ChevronsRight, tooltip: "Go to end", action: () => alert("hi") },
+  ];
+};
