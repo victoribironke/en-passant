@@ -1,6 +1,116 @@
+import Image from "next/image";
+import { Check, X, Star } from "lucide-react";
+import { PlayerData } from "@/types/general";
+import { Button } from "../ui/button";
+
 const GameSummary = () => {
+  const players: PlayerData[] = [
+    {
+      name: "boy_victor",
+      avatar: "/placeholder.svg?height=60&width=60",
+      accuracy: 76.3,
+      stats: {
+        brilliant: 0,
+        great: 2,
+        best: 4,
+        excellent: 6,
+        good: 2,
+        book: 6,
+        inaccuracy: 3,
+        mistake: 1,
+        miss: 0,
+        blunder: 1,
+      },
+      rating: 1250,
+      phases: {
+        opening: true,
+        middlegame: true,
+        endgame: false,
+      },
+    },
+    {
+      name: "Gullrick33",
+      avatar: "/placeholder.svg?height=60&width=60",
+      accuracy: 64.3,
+      stats: {
+        brilliant: 0,
+        great: 0,
+        best: 4,
+        excellent: 4,
+        good: 3,
+        book: 5,
+        inaccuracy: 5,
+        mistake: 1,
+        miss: 1,
+        blunder: 1,
+      },
+      rating: 700,
+      phases: {
+        opening: true,
+        middlegame: true,
+        endgame: false,
+      },
+    },
+  ];
+
+  // Labels for each stat category
+  const statLabels = {
+    brilliant: "Brilliant",
+    great: "Great",
+    best: "Best",
+    excellent: "Excellent",
+    good: "Good",
+    book: "Book",
+    inaccuracy: "Inaccuracy",
+    mistake: "Mistake",
+    miss: "Miss",
+    blunder: "Blunder",
+  };
+
   return (
-    <section className="w-full max-w-3xl rounded-xl bg-gradient-to-b from-black/80 via-black/90 to-black shadow-lg shadow-black/60 ring-1 ring-white/10 py-4 px-6 flex gap-6 items-center justify-center transform transition-transform opacity-50 hover:opacity-100 mb-26"></section>
+    <section className="w-full mb-26 max-w-lg rounded-xl bg-gradient-to-br from-dark-brown/10 to-dark-brown/20 border-2 py-4 px-6">
+      {/* Header with player names and avatars */}
+      <div className="grid grid-cols-3 mb-4 mt-2">
+        <div className="flex flex-col items-center text-lg">{players[0].name || "Player 1"}</div>
+
+        <div className="flex items-center justify-center">
+          {/* Empty center column in header */}
+        </div>
+
+        <div className="flex flex-col items-center text-lg">{players[1].name || "Player 2"}</div>
+      </div>
+
+      {/* Accuracy row */}
+      <div className="grid grid-cols-3 py-2 mb-4">
+        <div className="text-center">
+          <Button variant="secondary" className="lg:text-base">
+            {players[0].accuracy}
+          </Button>
+        </div>
+        <div className="text-gray-300 flex items-center justify-center">Accuracy</div>
+        <div className="text-center">
+          <Button variant="secondary" className="lg:text-base">
+            {players[1].accuracy}
+          </Button>
+        </div>
+      </div>
+
+      {/* Stats rows */}
+      {Object.entries(statLabels).map(([key, label]) => (
+        <div key={key} className="grid grid-cols-3 py-2 mb-2 rounded-lg">
+          <div className="text-center">
+            {players[0].stats[key as keyof (typeof players)[0]["stats"]]}
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            {/* {statIcons[key as keyof typeof statIcons]} */}
+            <span className="text-gray-300">{label}</span>
+          </div>
+          <div className="text-center">
+            {players[1].stats[key as keyof (typeof players)[1]["stats"]]}
+          </div>
+        </div>
+      ))}
+    </section>
   );
 };
 
