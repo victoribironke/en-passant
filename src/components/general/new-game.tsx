@@ -66,11 +66,11 @@ const NewGame = () => {
             <div className="flex items-center justify-center gap-2">
               <Input
                 placeholder="Username"
-                className="w-3/4"
+                className="w-3/5"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              <Button className="w-1/4" disabled={!username}>
+              <Button className="w-2/5" disabled={!username}>
                 Find games
               </Button>
             </div>
