@@ -8,7 +8,7 @@ const BottomBar = () => {
         <TooltipProvider key={i}>
           <Tooltip>
             <TooltipTrigger>
-              {<t.icon onClick={t.action} className="cursor-pointer" size={30} />}
+              <t.icon onClick={t.action} className="cursor-pointer" size={30} />
             </TooltipTrigger>
             <TooltipContent>
               <p>{t.tooltip}</p>

@@ -4,4 +4,6 @@ const board_details = atom({
   isFlipped: false,
 });
 
-export { board_details };
+const pgn = atom("");
+
+export { board_details, pgn };

@@ -7,7 +7,7 @@ import { useAtomValue } from "jotai";
 import { board_details } from "@/atoms/atoms";
 
 const Board = () => {
-  const [className, setClassname] = useState("");
+  const [className, setClassname] = useState("h-[calc(100vh-3rem)]");
   const { isFlipped } = useAtomValue(board_details);
 
   const board = parseFEN(STARTING_POSITION_FEN);

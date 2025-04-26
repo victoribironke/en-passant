@@ -19,7 +19,7 @@ const GameSummary = () => {
   };
 
   return (
-    <section className="w-full mb-26 max-w-lg rounded-xl bg-gradient-to-br from-dark-brown/10 to-dark-brown/20 border-2 py-4 px-6">
+    <section className="w-full max-w-lg rounded-xl bg-gradient-to-br from-dark-brown/10 to-dark-brown/20 border-2 py-4 px-6">
       {/* Header with player names and avatars */}
       <div className="grid grid-cols-3 mb-4 mt-2">
         <div className="flex flex-col items-center text-lg">{players[0].name || "Player 1"}</div>

@@ -3,6 +3,7 @@
 import BottomBar from "./bottom-bar";
 import GameSummary from "./game-summary";
 import Board from "./board";
+import NewGame from "./new-game";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Board />
       <GameSummary />
       <BottomBar /> {/* Maybe show the current move here */}
+      <NewGame />
     </main>
   );
 };

@@ -1,7 +1,14 @@
 import { board_details } from "@/atoms/atoms";
 import { PlayerData } from "@/types/general";
 import { useSetAtom } from "jotai";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Repeat2 } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  Plus,
+  Repeat2,
+} from "lucide-react";
 
 export const THEME_KEY = "en-passant-theme";
 
