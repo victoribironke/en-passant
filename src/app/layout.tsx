@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { gt } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Outpost - Chess Game Reviewer",
@@ -15,12 +14,8 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "antialiased dark w-full min-h-screen flex items-center justify-center p-6 xl:px-12",
-          gt.className
-        )}
-      >
+      <body className="antialiased dark w-full min-h-screen flex items-center justify-center p-6 xl:px-12">
+        <Toaster />
         {children}
       </body>
     </html>

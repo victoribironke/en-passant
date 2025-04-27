@@ -52,3 +52,27 @@ export const getPieceImage = (pieceChar: string | null) => {
       return null;
   }
 };
+
+export const formatChesscomArchiveLink = (link: string) => {
+  const splitted = link.split("/");
+
+  const month = splitted.at(-1);
+  const year = splitted.at(-2);
+
+  const monthMap = {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+  };
+
+  return `${monthMap[month as keyof typeof monthMap]} ${year}`;
+};
