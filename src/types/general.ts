@@ -43,3 +43,8 @@ export type ChesscomGame = {
     uuid: string;
   };
 };
+
+export type Game = {
+  pgn: string;
+  positions: string[];
+};

@@ -1,6 +1,7 @@
 import { IMAGES } from "@/constants/constants";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Chess } from "chess.js";
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
@@ -75,4 +76,21 @@ export const formatChesscomArchiveLink = (link: string) => {
   };
 
   return `${monthMap[month as keyof typeof monthMap]} ${year}`;
+};
+
+export const getPositionsFromPGN = (pgn: string) => {
+  const chess = new Chess();
+  chess.loadPgn(pgn);
+
+  const moves = chess.history();
+  const positions = []; // store FENs after each move
+
+  chess.reset();
+
+  for (const move of moves) {
+    chess.move(move);
+    positions.push(chess.fen());
+  }
+
+  return positions;
 };

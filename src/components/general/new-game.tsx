@@ -1,4 +1,4 @@
-import { pgn } from "@/atoms/atoms";
+import { game_details } from "@/atoms/atoms";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn, formatChesscomArchiveLink } from "@/lib/utils";
+import { cn, formatChesscomArchiveLink, getPositionsFromPGN } from "@/lib/utils";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Textarea } from "../ui/textarea";
@@ -27,9 +27,9 @@ import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import { ChesscomGame } from "@/types/general";
 
 const NewGame = () => {
-  const [currentPGN, setCurrentPGN] = useAtom(pgn);
+  const [game, setGame] = useAtom(game_details);
 
-  const [open, setOpen] = useState(currentPGN === "");
+  const [open, setOpen] = useState(game.pgn === "");
   const [source, setSource] = useState("pgn");
   const [username, setUsername] = useState("");
   const [loadingArchives, setLoadingArchives] = useState(false);
@@ -63,9 +63,18 @@ const NewGame = () => {
     setPage(1);
   };
 
+  const analyseGame = () => {
+    const positions = getPositionsFromPGN(game.pgn);
+
+    setGame({ ...game, positions });
+    setOpen(false);
+  };
+
   useEffect(() => {
     (async () => {
       if (timeframeUrl) {
+        setPage(1);
+
         setLoadingGames(true);
 
         const { data, error } = await getGameDetails(timeframeUrl);
@@ -109,8 +118,8 @@ const NewGame = () => {
             <Textarea
               className="max-h-40"
               placeholder="Enter your PGN here"
-              value={currentPGN}
-              onChange={(e) => setCurrentPGN(e.target.value)}
+              value={game.pgn}
+              onChange={(e) => setGame({ ...game, pgn: e.target.value })}
             />
           )}
 
@@ -162,9 +171,9 @@ const NewGame = () => {
                       <div
                         className={cn(
                           "flex items-center justify-between gap-2 w-full py-2 px-3 rounded-sm cursor-pointer border border-transparent hover:border-muted",
-                          currentPGN === g.pgn && "bg-muted"
+                          game.pgn === g.pgn && "bg-muted"
                         )}
-                        onClick={() => setCurrentPGN(g.pgn)}
+                        onClick={() => setGame({ ...game, pgn: g.pgn })}
                       >
                         <div className="text-sm flex items-center gap-2">
                           {g.white.username} ({g.white.rating})
@@ -220,11 +229,7 @@ const NewGame = () => {
           )}
         </div>
         <DialogFooter>
-          <Button
-            className="w-full cursor-pointer"
-            disabled={!currentPGN}
-            onClick={() => setOpen(false)}
-          >
+          <Button className="w-full cursor-pointer" disabled={!game.pgn} onClick={analyseGame}>
             Analyse
           </Button>
         </DialogFooter>
