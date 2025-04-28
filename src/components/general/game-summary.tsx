@@ -1,5 +1,6 @@
 import { Button } from "../ui/button";
 import { DEFAULT_SUMMARY } from "@/constants/constants";
+import NewGame from "./new-game";
 
 const GameSummary = () => {
   const players = DEFAULT_SUMMARY;
@@ -19,9 +20,9 @@ const GameSummary = () => {
   };
 
   return (
-    <section className="w-full max-w-lg rounded-xl bg-gradient-to-br from-dark-brown/10 to-dark-brown/20 border-2 py-4 px-6">
+    <section className="flex-1 flex flex-col items-center justify-center min-w-[24rem] max-w-lg rounded-xl bg-gradient-to-br from-dark-brown/10 to-dark-brown/20 border-2 py-4 px-6 mb-26 xl:mb-0">
       {/* Header with player names and avatars */}
-      <div className="grid grid-cols-3 mb-4 mt-2">
+      <div className="grid grid-cols-3 mb-4 mt-2 w-full">
         <div className="flex flex-col items-center text-lg">{players[0].name || "Player 1"}</div>
 
         <div className="flex items-center justify-center">
@@ -32,7 +33,7 @@ const GameSummary = () => {
       </div>
 
       {/* Accuracy row */}
-      <div className="grid grid-cols-3 py-2 mb-4">
+      <div className="grid grid-cols-3 py-2 mb-4 w-full">
         <div className="text-center">
           <Button variant="secondary" className="lg:text-base">
             {players[0].accuracy}
@@ -48,7 +49,7 @@ const GameSummary = () => {
 
       {/* Stats rows */}
       {Object.entries(statLabels).map(([key, label]) => (
-        <div key={key} className="grid grid-cols-3 py-2 mb-2 rounded-lg">
+        <div key={key} className="grid grid-cols-3 py-2 mb-2 rounded-lg w-full">
           <div className="text-center">
             {players[0].stats[key as keyof (typeof players)[0]["stats"]]}
           </div>
@@ -60,6 +61,8 @@ const GameSummary = () => {
           </div>
         </div>
       ))}
+
+      <NewGame />
     </section>
   );
 };

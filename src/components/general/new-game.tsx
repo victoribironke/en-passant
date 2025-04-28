@@ -93,7 +93,9 @@ const NewGame = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className={cn(buttonVariants({ variant: "outline" }), "mb-26 cursor-pointer")}>
+        <div
+          className={cn(buttonVariants({ variant: "outline" }), "w-full mt-auto cursor-pointer")}
+        >
           New Game
         </div>
       </DialogTrigger>
