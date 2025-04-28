@@ -94,3 +94,27 @@ export const getPositionsFromPGN = (pgn: string) => {
 
   return positions;
 };
+
+export const timeSince = (msTimestamp: number) => {
+  const now = Date.now();
+  let diff = Math.abs(now - msTimestamp) / 1000; // difference in seconds
+
+  const units = [
+    { name: "y", seconds: 365 * 24 * 60 * 60 },
+    { name: "mo", seconds: 30 * 24 * 60 * 60 },
+    { name: "w", seconds: 7 * 24 * 60 * 60 },
+    { name: "d", seconds: 24 * 60 * 60 },
+    { name: "h", seconds: 60 * 60 },
+    { name: "m", seconds: 60 },
+    { name: "s", seconds: 1 },
+  ];
+
+  for (const unit of units) {
+    const amount = Math.floor(diff / unit.seconds);
+    if (amount >= 1) {
+      return amount + unit.name;
+    }
+  }
+
+  return "0s"; // less than 1 second
+};

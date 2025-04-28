@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn, formatChesscomArchiveLink, getPositionsFromPGN } from "@/lib/utils";
+import { cn, formatChesscomArchiveLink, getPositionsFromPGN, timeSince } from "@/lib/utils";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Textarea } from "../ui/textarea";
@@ -83,7 +83,8 @@ const NewGame = () => {
 
         if (error) return toast.error(error);
 
-        setGames(data);
+        const reversed = data.slice().reverse();
+        setGames(reversed);
       }
     })();
   }, [timeframeUrl]);
@@ -188,14 +189,16 @@ const NewGame = () => {
 
                       <div
                         className={cn(
-                          "size-4 rounded-sm",
+                          "w-fit min-w-7 px-1.5 h-7 grid place-items-center text-sm rounded-sm",
                           p.result === "win"
-                            ? "bg-green-400"
+                            ? "bg-green-700"
                             : p.result === "insufficient"
                             ? "bg-muted-foreground"
-                            : "bg-red-400"
+                            : "bg-red-700"
                         )}
-                      />
+                      >
+                        {timeSince(g.end_time * 1000)}
+                      </div>
                     </div>
                   );
                 })}
