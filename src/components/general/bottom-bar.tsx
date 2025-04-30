@@ -11,9 +11,43 @@ const BottomBar = () => {
 
   const totalSteps = positions.length - 1;
 
+  // console.log("positions", positions);
+
+  // REVIEW THE FUNCTIONS THAT SET THE NEXT POSITION
+
   useEffect(() => {
     setBoardDetails((prev) => ({ ...prev, position: positions[step] }));
   }, [step]);
+
+  const goToStart = () => setStep(0);
+  const previousMove = () => setStep((s) => (s !== 0 ? s - 1 : s));
+  const nextMove = () => setStep((s) => (s !== totalSteps ? s + 1 : s));
+  const goToEnd = () => setStep(totalSteps);
+
+  useEffect(() => {
+    document.addEventListener("keyup", (event) => {
+      switch (event.key) {
+        case "ArrowUp": {
+          goToStart();
+          break;
+        }
+        case "ArrowDown": {
+          goToEnd();
+          break;
+        }
+        case "ArrowLeft": {
+          previousMove();
+          break;
+        }
+        case "ArrowRight": {
+          nextMove();
+          break;
+        }
+        default:
+          break;
+      }
+    });
+  }, []);
 
   return (
     <div className="rounded-xl bg-gradient-to-b from-black/80 via-black/90 to-black shadow-lg shadow-black/60 ring-1 ring-white/10 py-4 px-6 fixed bottom-8 flex gap-6 items-center justify-center transform transition-transform opacity-50 hover:opacity-100">
@@ -35,7 +69,7 @@ const BottomBar = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <ChevronsLeft onClick={() => setStep(0)} className="cursor-pointer" size={30} />
+            <ChevronsLeft onClick={goToStart} className="cursor-pointer" size={30} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Go to start</p>
@@ -46,11 +80,7 @@ const BottomBar = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <ChevronLeft
-              onClick={() => setStep((s) => (s !== 0 ? s - 1 : s))}
-              className="cursor-pointer"
-              size={30}
-            />
+            <ChevronLeft onClick={previousMove} className="cursor-pointer" size={30} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Previous move</p>
@@ -61,11 +91,7 @@ const BottomBar = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <ChevronRight
-              onClick={() => setStep((s) => (s !== totalSteps ? s + 1 : s))}
-              className="cursor-pointer"
-              size={30}
-            />
+            <ChevronRight onClick={nextMove} className="cursor-pointer" size={30} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Next move</p>
@@ -76,11 +102,7 @@ const BottomBar = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <ChevronsRight
-              onClick={() => setStep(totalSteps)}
-              className="cursor-pointer"
-              size={30}
-            />
+            <ChevronsRight onClick={goToEnd} className="cursor-pointer" size={30} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Go to end</p>
